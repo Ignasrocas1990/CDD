@@ -52,7 +52,6 @@ public class Main {
         // creates a thread pool with MAX_T no. of 
         // threads as the fixed pool size(Step 2)
         ExecutorService pool = Executors.newFixedThreadPool(MAX_T);  
-        System.out.println("AtomicIntegerFix");
         // passes the Task objects to the pool to execute (Step 3)
         
         pool.execute(r1);
