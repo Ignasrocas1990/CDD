@@ -14,7 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package synchronisedFix;
+package com.mycompany.lab3;
+
+import java.util.concurrent.Semaphore;
+
+
 /**
  * @author Ignas Rocas
  * @since 11/10/2021
@@ -25,38 +29,26 @@ package synchronisedFix;
  */
 public class Task implements Runnable {
 private String name;
-    private IntegerObj total;
+    String location;
+    Semaphore semaphore = new Semaphore(1);
+    Barrier barrier = new Barrier(Main.MAX_T,semaphore,false);
 
-    /**
-     *
-     * @param task_1 - name for tread
-     * @param total - task counter
-     */
-    public Task(String task_1, IntegerObj total) {
-        name=task_1;
-        this.total = total;
+
+    Task(String name) {
+        this.name = name;
     }
     
-    /**
-     * run's 500 tasks with sleep between 100
-     */
     public void run()
     {
-        try
-        {
-            for (int i = 0; i<500; i++)
-            {
-                total.inc();
-                if (i%100==0){
-                   Thread.sleep(100); 
-                }
-                        System.out.println("thread is running "+Thread.currentThread().getName());
+        for (int i = 0; i < 2; i++) {
+            System.out.println("running "+Thread.currentThread().getName());
+           System.out.println("before barier vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+           
+           barrier.arrival();
+           //barrier --------
+           System.out.println("after barier ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 
-            }
         }
-        catch(InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+
     }
 }

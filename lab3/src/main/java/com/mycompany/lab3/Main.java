@@ -14,9 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package synchronisedFix;
+package com.mycompany.lab3;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,36 +37,52 @@ import java.util.logging.Logger;
 public class Main {
     
       // Maximum number of threads in thread pool
-    static final int MAX_T = 4;             
+    static final int MAX_T = 4; 
+    static int total = 0;
+    
   
     /**
      *
      * @param args
      */
-    public static void main(String[] args)
-    {
-        IntegerObj total= new IntegerObj(0);
+    public static void main(String[] args){
+        
+        
+        //IntegerObj total= new IntegerObj(0);
         // creates five tasks
-        Runnable r1 = new Task("task 1",total);
-          
+         Runnable r1 = new Task("task 1");
+        Runnable r2 = new Task("task 2");
+        Runnable r3 = new Task("task 3");
+        Runnable r4 = new Task("task 4");   
+
+
+        //Runnable r2 = new Task("task 2",before_bar);
         // creates a thread pool with MAX_T no. of 
         // threads as the fixed pool size(Step 2)
         ExecutorService pool = Executors.newFixedThreadPool(MAX_T);  
-         
         // passes the Task objects to the pool to execute (Step 3)
-        //create threads by pool
+
         pool.execute(r1);
-        pool.execute(r1);
-        pool.execute(r1);
-        pool.execute(r1);
+        pool.execute(r2);
+        pool.execute(r3);
+        pool.execute(r4);
+
+        
+        
+        
+          
+
           
         // pool shutdown ( Step 4)
         pool.shutdown();    
+        
+        /*
         try {
             Thread.sleep(2500);
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("total is: "+total.value);
+        */
     }
 }

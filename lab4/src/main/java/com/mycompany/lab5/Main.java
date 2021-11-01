@@ -14,58 +14,60 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package synchronisedFix;
+package com.mycompany.lab5;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.Semaphore;
 
 /**
  * @author Ignas Rocas
- * @since 11/10/2021
+ * @since 01/11/2021
  * Short and long description
  * <p>
- * Main class used to create threads/thread pool and assign 
+ * Main class used to create threads, queue and thread pool and assign 
  * tasks for them.
  * <p>
  */
-    /**
-     *
-     * @param args - not used
-     */
 public class Main {
     
       // Maximum number of threads in thread pool
-    static final int MAX_T = 4;             
+    static final int MAX_T = 4;     
   
     /**
-     *
-     * @param args
+     * @param args - not used
      */
-    public static void main(String[] args)
-    {
-        IntegerObj total= new IntegerObj(0);
-        // creates five tasks
-        Runnable r1 = new Task("task 1",total);
-          
+
+    public static void main(String[] args){
+        final DanceFloor queue = new DanceFloor();
+
+        // creates seight tasks
+        Runnable l1 = new Leader("Leader 1",queue);
+        Runnable l2 = new Leader("Leader 2",queue);
+        Runnable l3 = new Leader("Leader 3",queue);
+        Runnable l4 = new Leader("Leader 4",queue);
+        
+        Runnable f1 = new Follower("Follower 1",queue);
+        Runnable f2 = new Follower("Follower 2",queue);
+        Runnable f3 = new Follower("Follower 3",queue);
+        Runnable f4 = new Follower("Follower 4",queue);
+
         // creates a thread pool with MAX_T no. of 
-        // threads as the fixed pool size(Step 2)
         ExecutorService pool = Executors.newFixedThreadPool(MAX_T);  
-         
+        
         // passes the Task objects to the pool to execute (Step 3)
-        //create threads by pool
-        pool.execute(r1);
-        pool.execute(r1);
-        pool.execute(r1);
-        pool.execute(r1);
-          
+        pool.execute(l1);
+        pool.execute(l2);
+        pool.execute(l3);  
+        pool.execute(f3);
+        pool.execute(l4);
+        
+        pool.execute(f1);
+        pool.execute(f2);
+        pool.execute(f4);
+        
+        
         // pool shutdown ( Step 4)
         pool.shutdown();    
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("total is: "+total.value);
+       
     }
 }
