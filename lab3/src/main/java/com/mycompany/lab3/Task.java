@@ -16,12 +16,9 @@
  */
 package com.mycompany.lab3;
 
-import java.util.concurrent.Semaphore;
-
-
 /**
  * @author Ignas Rocas
- * @since 11/10/2021
+ * @since 08/11/2021
  * Short and long description
  * <p>
  * This class used to impersonate task for
@@ -30,23 +27,28 @@ import java.util.concurrent.Semaphore;
 public class Task implements Runnable {
 private String name;
     String location;
-    Semaphore semaphore = new Semaphore(1);
-    Barrier barrier = new Barrier(Main.MAX_T,semaphore,false);
+    Barrier barrier;
 
-
-    Task(String name) {
+    /**
+     * 
+     * @param barrier - Barrier to split the code
+     * @param name - name of the task
+     */
+    Task(Barrier barrier,String name) {
         this.name = name;
+        this.barrier = barrier;
     }
-    
+    /**
+     * all threads runs before barrier first
+     * and then goes through barrier
+     * and runs after barrier
+     */
     public void run()
     {
         for (int i = 0; i < 2; i++) {
-            System.out.println("running "+Thread.currentThread().getName());
-           System.out.println("before barier vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-           
+           System.out.println("before barrier vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
            barrier.arrival();
-           //barrier --------
-           System.out.println("after barier ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+           System.out.println("after barrier ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 
         }
 

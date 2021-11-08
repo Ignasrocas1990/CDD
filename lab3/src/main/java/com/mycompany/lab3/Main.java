@@ -17,43 +17,33 @@
 package com.mycompany.lab3;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * @author Ignas Rocas
- * @since 11/10/2021
+ * @since 08/11/2021
  * Short and long description
  * <p>
  * Main class used to create threads/thread pool and assign 
  * tasks for them.
  * <p>
  */
+public class Main {
+    
+      // Maximum number of threads in thread pool
+    static final int MAX_T = 4;
     /**
      *
      * @param args - not used
      */
-public class Main {
-    
-      // Maximum number of threads in thread pool
-    static final int MAX_T = 4; 
-    static int total = 0;
-    
-  
-    /**
-     *
-     * @param args
-     */
     public static void main(String[] args){
         
         
-        //IntegerObj total= new IntegerObj(0);
+        final Barrier barrier = new Barrier(Main.MAX_T);
+
         // creates five tasks
-         Runnable r1 = new Task("task 1");
-        Runnable r2 = new Task("task 2");
-        Runnable r3 = new Task("task 3");
-        Runnable r4 = new Task("task 4");   
+         Runnable r1 = new Task(barrier,"task 1");
+        Runnable r2 = new Task(barrier,"task 2");
+        Runnable r3 = new Task(barrier,"task 3");
+        Runnable r4 = new Task(barrier,"task 4");   
 
 
         //Runnable r2 = new Task("task 2",before_bar);
@@ -68,10 +58,7 @@ public class Main {
         pool.execute(r4);
 
         
-        
-        
-          
-
+       
           
         // pool shutdown ( Step 4)
         pool.shutdown();    

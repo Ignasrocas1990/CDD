@@ -1,61 +1,79 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Copyright (C) 2021 ignas
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.mycompany.lab3;
 
 import java.util.concurrent.Semaphore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
- * @author ignas
+ * @author Ignas Rocas
+ * @since 08/11/2021
+ * Short and long description
+ * <p>
+ * This class used for barrier implementation.
+ * Threads have to run through two phases
+ * 
  */
 public class Barrier{
+    /*
+    total is number of threads initialized
+    count is number threads arrived at the point
+    */
     int total, count=0,startCount=0;
-    boolean release;
-    Semaphore s_lock;
-    boolean localSense=false;
+    Semaphore s_lock1;
+    Semaphore s_lock2;
+    Semaphore mutex;
 
-    
-    public Barrier(int total,Semaphore s_lock,boolean release){
+    /**
+     * 
+     * @param total - number of threads initialized
+     */
+    public Barrier(int total){
         this.total = total;
-        this.s_lock = s_lock;
-        this.release = release;
-        
-    }
-    public void arrival(){
-        System.out.println("arrived "+Thread.currentThread().getName());
-        startCount++;
-        localSense = !localSense;
-        while(startCount < Main.MAX_T){
-            System.out.print(Thread.currentThread().getName()+" waiting "+"startCount is "+startCount+" maxCount is  "+Main.MAX_T+" ");
-            //loop the thread till all threads are completed.s
-        }
+        this.s_lock1 = new Semaphore(0);
+        this.s_lock2 = new Semaphore(0);
+        this.mutex = new Semaphore(1);
 
-        System.out.println(Thread.currentThread().getName()+"asks wha is localSense? "+localSense);
+    }
+    /**
+     * Threads are forced to go through arrival method in stages,
+     * first stage increment count till all threads arrive(using s_lock1)
+     * second stage decrement count till all threads arrive(using s_lock2)
+     */
+    public void arrival(){
         try {
-            s_lock.acquire();
-            System.out.println(Thread.currentThread().getName()+" locked");
+            mutex.acquire();
             count++;
-            System.out.println("count is "+count);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Barrier.class.getName()).log(Level.SEVERE, null, ex);
+            if(count==total){
+                s_lock1.release(total);
+            }
+            mutex.release();
+            s_lock1.acquire();
+            
+            mutex.acquire();
+            count--;
+            if(count == 0){
+                s_lock2.release(total);
+            }
+            mutex.release();
+            s_lock2.acquire();
+            
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
         }
-        System.out.println("total is" +total);
-        if(count==total){
-            count = 0;
-            release=localSense;
-            System.out.println("release is "+release);
-        }
-        s_lock.release();
-        System.out.println(Thread.currentThread().getName()+" released lock ");
-        while (localSense != release) {    
-            System.out.print(Thread.currentThread().getName()+" waiting "+"release is "+release+" localSense "+localSense+" ");
-            //loop the thread till all threads are completed.s
-        }
-        if(startCount==Main.MAX_T){startCount=0;}
     }
 }
