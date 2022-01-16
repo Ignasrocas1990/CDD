@@ -34,8 +34,10 @@ void evolve(void *u, int w, int h)
 		int n = 0;
 		for (int y1 = y - 1; y1 <= y + 1; y1++)
 			for (int x1 = x - 1; x1 <= x + 1; x1++)
+				
 				if (univ[(y1 + h) % h][(x1 + w) % w])
 					n++;
+
 
 		if (univ[y][x]) n--;
 		new[y][x] = (n == 3 || (n == 2 && univ[y][x]));
