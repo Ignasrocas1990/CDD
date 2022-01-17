@@ -1,33 +1,3 @@
-// simpleSum.cpp ---
-//
-// Filename: simpleSum.cpp
-// Description:
-// Author: Joseph Kehoe
-// Maintainer:
-// Created: Fri Dec  3  15:12:18 2021 (+0000)
-// Version:
-// Package-Requires: ()
-// Last-Updated:
-//           By: Joseph
-//     Update #:
-// URL:
-// Doc URL:
-// Keywords:
-// Compatibility:
-//
-//
-
-// Commentary:
-//
-//
-//
-//
-
-// Change Log:
-//
-//
-//
-//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at
@@ -40,10 +10,18 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-//
-//
 
-// Code:
+/*
+	Name: Ignas Rocas
+	Student nr: C00135830
+	Date : 17/01/2022
+	Purpose: Lab 10, using pragma omp libraby
+	Description: 
+	Generates random array of values and 
+	uses multiple threads while sharing same
+	value (sum) to calculate total
+	
+*/
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */

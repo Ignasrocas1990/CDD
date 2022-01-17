@@ -1,3 +1,18 @@
+/*
+	Name: Ignas Rocas
+	Student nr: C00135830
+	Purpose: Lab 10
+	Date : 17/01/2022
+	Description :
+	
+	This program runs two tests.
+	1)it runs from nr 1 to 131072 (with every number being =  N*2)
+	 and calculates number of primes that number contains with time it took to calculate it.
+	2)it runs from nr 5 to 500000 (with every number being =  N*5)
+	 and calculates number of primes that number contains with time it took to calculate it.
+	while using OpenMP
+	
+*/
 # include <cstdlib>
 # include <iostream>
 # include <iomanip>

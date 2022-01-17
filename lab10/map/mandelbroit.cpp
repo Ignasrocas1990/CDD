@@ -1,33 +1,3 @@
-// mandelbroit.cpp --- m
-//
-// Filename: mandelbroit.cpp
-// Description:
-// Author: Joseph
-// Maintainer:
-// Created: Mon Feb  4 09:40:41 2019 (+0000)
-// Version:
-// Package-Requires: ()
-// Last-Updated: Mon Feb  4 10:08:24 2019 (+0000)
-//           By: Joseph
-//     Update #: 18
-// URL:
-// Doc URL:
-// Keywords:
-// Compatibility:
-//
-//
-
-// Commentary:
-//
-//
-//
-//
-
-// Change Log:
-//
-//
-//
-//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at
@@ -40,10 +10,13 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-//
-//
 
-// Code:
+/*
+	Name: Ignas Rocas
+	Student nr: C00135830
+	Purpose: Introduction to omp pragma library
+	Date : 17/01/2022
+*/
 
 #include <iostream>
 #include <stdlib.h>     /* srand, rand */

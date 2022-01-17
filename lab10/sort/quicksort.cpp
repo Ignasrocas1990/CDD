@@ -1,33 +1,4 @@
-// quicksort.cpp ---
-//
-// Filename: quicksort.cpp
-// Description:
-// Author: Joseph Kehoe
-// Maintainer:
-// Created: Sat Feb  9 16:43:33 2019 (+0000)
-// Version:
-// Package-Requires: ()
-// Last-Updated: Tue Feb 12 16:48:22 2019 (+0000)
-//           By: Joseph
-//     Update #: 103
-// URL:
-// Doc URL:
-// Keywords:
-// Compatibility:
-//
-//
 
-// Commentary:
-//
-//
-//
-//
-
-// Change Log:
-//
-//
-//
-//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at
@@ -40,8 +11,15 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-//
-//
+/*
+	Name: Ignas Rocas
+	Student nr: C00135830
+	Purpose: lab 10
+	Date : 17/01/2022
+	Description:
+	It uses OpenMP in quick sort algorithm.
+	
+*/
 
 // Code:
 
@@ -59,7 +37,7 @@ using namespace std ;
 
 const int LENGTH=2000;
 
-//template <typename T>
+//doing the sorting
 int partition (vector<int>& myArray , int low , int high ){
   int pivot=myArray[high];
   int k=high;
@@ -72,29 +50,29 @@ int partition (vector<int>& myArray , int low , int high ){
       temp=myArray[i];
       myArray[i]=myArray[k];
       myArray[k]=temp;
-      i++;//do not decrement k here OR ELSE!!
+      i++;
     }
   }
   return i-1;
 }
 
-//template<typename T>
+//picks a pivot 
 int quicksort(vector<int>& myArray , int low , int high ){
   if (low<high){
     int pivot=partition(myArray,low,high);
-    //really we should only do this if each partition is above a certain size (1000 elements?)
-    //otherwise the overhead outweighs any gains from using threads
+    
+	//seperates current list into two parts
     #pragma omp task shared(myArray)
-    quicksort(myArray,low,pivot);
-    quicksort(myArray,pivot+1,high);
-    #pragma omp taskwait
+    quicksort(myArray,low,pivot); 		// new thread
+    quicksort(myArray,pivot+1,high);	//current thread
+    #pragma omp taskwait				//waits till both lists are sorted to continue
   return 1;
   }
   return 0;
 }//quicksort
 
 
-
+//inishilize array of 2000 length with random values
 int main(void){
   srand (time(NULL));
   vector<int> data(LENGTH);

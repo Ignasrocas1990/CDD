@@ -1,33 +1,3 @@
-// stencil.cpp ---
-//
-// Filename: stencil.cpp
-// Description:
-// Author: Joseph
-// Maintainer:
-// Created: Mon Feb  4 10:10:27 2019 (+0000)
-// Version:
-// Package-Requires: ()
-// Last-Updated: Fri Feb  8 10:14:29 2019 (+0000)
-//           By: Joseph Kehoe
-//     Update #: 40
-// URL:
-// Doc URL:
-// Keywords:
-// Compatibility:
-//
-//
-
-// Commentary:
-//
-//
-//
-//
-
-// Change Log:
-//
-//
-//
-//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or (at
@@ -40,8 +10,12 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
-//
-//
+/*
+	Name: Ignas Rocas
+	Student nr: C00135830
+	Purpose: lab 10
+	Date : 17/01/2022
+*/
 
 // Code:
 
